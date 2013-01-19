@@ -5,11 +5,15 @@
 
 var express = require('express')
   , routes = require('./routes')
-  , user = require('./routes/user')
+  , png = require('./routes/png')
+  , nunjucks = require('nunjucks')
   , http = require('http')
   , path = require('path');
 
 var app = express();
+
+var env = new nunjucks.Environment(new nunjucks.FileSystemLoader('views'));
+env.express(app);
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -29,8 +33,13 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', routes.index);
-app.get('/users', user.list);
+// app.get('/', routes.index);
+// app.post('/details', png.details);
+// app.post('/check', png.check);
+
+app.get('/', function(req, res) {res.render('index.html');});
+app.post('/details', png.details);
+// app.post('/check', function(req, res) {res.render('index.html');});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
