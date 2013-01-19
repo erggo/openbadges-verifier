@@ -1,17 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Express</title>
-	<script type="text/javascript" href="http://code.jquery.com/jquery.min.js"></script>
-	<link rel="stylesheet" href="/stylesheets/style.css">
-</head>
-<body>
-	<h1>Express</h1>
-	<p>Welcome to Express</p>
+{% extends "layout.html" %}
+{% block body %}
 	<form action="/details" method="post" enctype="multipart/form-data">
 		<label></label>
 		<input type="file" name="file" id="file">
 		<input type="submit" name="submit" value="Submit">
 	</form>
-</body>
-</html>
+{% endblock %}
