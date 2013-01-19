@@ -12,3 +12,21 @@ logs
 results
 
 npm-debug.log
+
+.#*
+*log
+*~
+*#*
+.vagrant
+.DS_Store
+*.rpm
+*.tar.gz
+*.pid
+
+/docs
+/node_modules
+/bin/update-docs
+/bin/start-server
+/.project
+/lib/environments/local.js
+/wiki
