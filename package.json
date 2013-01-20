@@ -3,9 +3,11 @@
   "description": "hello world test app",
   "version": "0.0.1",
   "private": true,
-  "dependencies": {
+  "engines": {
     "node": "0.8.x",
-    "npm":  "1.1.x",
+    "npm":  "1.1.x"
+  },
+  "dependencies": {
     "express": "3.x",
     "streampng" : "0.1.1",
     "jade" : "0.28.1",
