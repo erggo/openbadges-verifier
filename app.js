@@ -38,7 +38,7 @@ app.configure('development', function(){
 // app.post('/check', png.check);
 
 app.get('/', function(req, res) {res.render('index.html');});
-app.post('/details', png.details);
+app.post('/', png.details);
 app.post('/check', png.check);
 
 http.createServer(app).listen(app.get('port'), function(){

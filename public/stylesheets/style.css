@@ -1,8 +1,16 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  text-align: center;
+  background-color: #3C55A5;
 }
 
 a {
   color: #00B7FF;
+} 
+
+h1 {
+	font-family: 'Lobster', cursive;
+	font-size: 45px;
+	color: #27AAE2;
 }

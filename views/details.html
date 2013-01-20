@@ -19,25 +19,31 @@
 					  	console.log(data)
 					  	// response = jQuery.parseJSON( data )
 					  	if (data.status == 'true') {
-					  		output.text("ok");
+					  		output.text("Yeeeah! Its yours.");
 					  	} else {
-					  		output.text("not ok");
+					  		output.text("This is not your badge :(");
 					  	}
 					  }
 					});
 				})
 				
 			})
+
+
+
+
+			if (!!FileReader && Modernizr.draganddrop) {
+			  // sexy drag and drop action
+			} else {
+			  // no drag and drop support available :(
+			}
 		})
 		</script>
 
-	<img src="{{data.badge.image}}" > </img>
-	{{data.badge.name}} <br/>
-	{{data.badge.description}} <br/>
-	{{data.badge.criteria}} <br/>
-	{# {{data.badge.issuer}} <br/> #}
-	
-	    <input type="text" id="email" placeholder="Enter email here">
-	    <h1 id="output">Hello {{yourName}}!</h1>
+	<h1> <a href="{{data.badge.criteria}}">{{data.badge.name}} </a> </h1><br/>
+	<img src="{{data.badge.image}}" > </img> <br/>
+	<p style="color: white;">{{data.badge.description}}</p> <br/>
+    <input type="text" id="email" placeholder="Enter email here" autocomplete="off" autofocus="autofocus">
+    <h1 id="output">Hello {{yourName}}!</h1>
 	   
 {% endblock %}
