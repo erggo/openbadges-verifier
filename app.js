@@ -4,7 +4,7 @@
  */
 
 var express = require('express')
-  , routes = require('./routes')
+  // , routes = require('./routes')
   , png = require('./routes/png')
   , nunjucks = require('nunjucks')
   , http = require('http')
@@ -36,6 +36,7 @@ app.configure('development', function(){
 app.get('/', function(req, res) {res.render('index.html');});
 app.post('/', png.details);
 app.post('/check', png.check);
+app.post('/api', png.api);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

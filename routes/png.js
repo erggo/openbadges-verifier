@@ -9,7 +9,44 @@ process.on('uncaughtException', function (err) {
   console.error(err);
 });
 
-exports.check = function(req, res){
+function getInfo (filePath, callback) {
+    var instream = fs.createReadStream(filePath);
+    var png = StreamPng(instream);
+    
+    png.on('error',function (argument) {
+       callback(argument, null); 
+    });
+
+    png.on('tEXt', function (chunk) { 
+        if (chunk.keyword == 'openbadges'){
+            request(chunk.text, function (error, response, body) {
+              if (!error && response.statusCode == 200) {
+                var data = JSON.parse(body);        
+                callback(null, data);
+              }
+            });
+        } else {
+            callback("Keyword 'openbadges' is missing.", null);
+        }
+    });
+};
+
+function checkEmail (data, email) {
+    if (data.recipient.indexOf("@") !== -1){
+        return (data.recipient == email);
+    } else {
+        var algorithm = data.recipient.split("$")[0];
+        var hash = data.recipient.split("$")[1];
+
+        return (hash == utils.hash(email + data.salt, algorithm))
+    }
+};
+
+exports.api = function(req, res){
+    res.send({ user: 'tobi' })
+};
+
+exports.check = function (req, res) {
     if (checkEmail(req.body.data, req.body.email)) {
         res.json({status: 'true'});
     } else {
@@ -17,7 +54,7 @@ exports.check = function(req, res){
     }
 };
 
-exports.details = function(req, res){
+exports.details = function (req, res) {
   getInfo(req.files.file.path, function (error, data) {
     console.log('Error: ' + error);
     
@@ -35,40 +72,3 @@ exports.details = function(req, res){
       }
   });
 };
-
-
-function getInfo (filePath, callback) {
-    var instream = fs.createReadStream(filePath);
-    var png = StreamPng(instream);
-    
-    png.on('error',function (argument) {
-       callback(argument); 
-    });
-
-    png.on('tEXt', function(chunk) { 
-        if (chunk.keyword == 'openbadges'){
-            request(chunk.text, function (error, response, body) {
-              if (!error && response.statusCode == 200) {
-                var data = JSON.parse(body);        
-                callback(null, data);
-              }
-            });
-        } else {
-            callback("Keyword 'openbadges' is missing.", null);
-        }
-    });
-}
-
-function checkEmail (data, email) {
-    if (data.recipient.indexOf("@") !== -1){
-            return (data.recipient == email);
-        } else {
-            var algorithm = data.recipient.split("$")[0];
-            var hash = data.recipient.split("$")[1];
-            // console.log(algorithm)
-            // console.log(hash)
-            // console.log(utils.hash(email + data.salt, algorithm))
-
-            return (hash == utils.hash(email + data.salt, algorithm))
-        }
-}
