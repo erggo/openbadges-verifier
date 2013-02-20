@@ -8,11 +8,12 @@
 
 				_email.keyup(function () {
 					// output.text(email.val());
+					// var emailTxt = _email.val();
 					$.ajax({
 					  type: "POST",
 					  url: "check",
 					  data: {
-					  	email: _email.val(),
+					  	email: _email.val().trim(),
 					  	data: {{data_string}}
 					  },
 					  success: function (data) {

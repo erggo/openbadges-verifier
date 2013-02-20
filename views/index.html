@@ -1,5 +1,12 @@
 {% extends "layout.html" %}
 {% block body %}
+	<div id="error" class="alert alert-error" style="
+    width: 300px;
+    position: relative;
+    display: none;  
+    margin-left: auto;   margin-right: auto;">
+		<b>Error</b> {{errorData}}
+	</div>
 	<h1>OpenBadge Verifier</h1>
 	<img src="/images/newbie.png"> </img>
 	<h1>Upload your badge here</h1>
@@ -8,4 +15,13 @@
 		<input type="file" name="file" id="file">
 		<input type="submit" name="submit" value="Submit">
 	</form>
+
+	<script type="text/javascript">
+	jQuery(document).ready(function () {
+		var error="{{error}}";
+		if (error){
+			$("#error").fadeIn();
+		}
+	});
+	</script>
 {% endblock %}
